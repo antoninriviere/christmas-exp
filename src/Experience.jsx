@@ -2,6 +2,9 @@ import { OrbitControls } from '@react-three/drei'
 import { useGLTF } from '@react-three/drei'
 import { useControls } from 'leva'
 import { Perf } from 'r3f-perf'
+import Aurora from './Aurora/Aurora.jsx'
+
+
 
 export default function Experience()
 {
@@ -10,11 +13,11 @@ export default function Experience()
     })
 
     const { showGround } = useControls('ground', {
-        showGround: true,
+        showGround: false,
     })
 
     const { showTree, scale } = useControls('tree', {
-        showTree: true,
+        showTree: false,
         scale: {
             value: 2,
             min: 0,
@@ -35,10 +38,11 @@ export default function Experience()
 
         { showTree && <primitive object={ tree.scene } scale={scale} />}
 
-        {showGround && <mesh position-y={ - 1 } rotation-x={ - Math.PI * 0.5 } scale={ 10 }>
+        { showGround && <mesh position-y={ - 1 } rotation-x={ - Math.PI * 0.5 } scale={ 10 }>
             <planeGeometry />
             <meshStandardMaterial color="#f2f5ff" />
-        </mesh>}
+        </mesh> }
+        <Aurora />
 
     </>
 }
