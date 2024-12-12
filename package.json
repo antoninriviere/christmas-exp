@@ -10,7 +10,7 @@
   "devDependencies": {
     "@react-three/drei": "^9.120.4",
     "@vitejs/plugin-react": "4.3",
-    "leva": "^0.9.35",
+    "leva": "^0.9.34",
     "r3f-perf": "^7.2.3",
     "simplex-noise": "^4.0.3",
     "vite": "^5.3.3",

@@ -17,7 +17,8 @@ export default function Aurora({ width = 5, height = 1, segments = 32 }) {
 
     const {uPlaneNoiseScale, uPlaneNoiseFactor } = useControls('Aurora', {
         uPlaneNoiseScale: {
-            value: 5,
+            label: 'aurora noise',
+            value: 3.0,
             step: 0.1,
             min: 0,
             max: 10,
@@ -26,12 +27,27 @@ export default function Aurora({ width = 5, height = 1, segments = 32 }) {
             }
         },
         uPlaneNoiseFactor: {
-            value: 0.5,
+            label: 'plane noise',
+            value: 0.75,
             step: 0.01,
             min: 0,
             max: 3,
             onChange: (value) => {
                 materialRef.current.uniforms.uPlaneNoiseFactor.value = value
+            }
+        },
+        uColorTop: {
+            label: 'color top',
+            value: '#66ffff',
+            onChange: (value) => {
+                materialRef.current.uniforms.uColorTop.value = new THREE.Color(value)
+            }
+        },
+        uColorBottom: {
+            label: 'color bottom',
+            value: '#45ed00',
+            onChange: (value) => {
+                materialRef.current.uniforms.uColorBottom.value = new THREE.Color(value)
             }
         }
     })
@@ -52,9 +68,10 @@ export default function Aurora({ width = 5, height = 1, segments = 32 }) {
                 uniforms={{
                     uTime: { value: 0 },
                     uPlaneNoiseFactor: { value: 0.5 },
-                    uPlaneNoiseScale: {value: 5.0 }
+                    uPlaneNoiseScale: {value: 5.0 },
+                    uColorBottom: {value: new THREE.Color(0x45ed00)},
+                    uColorTop: {value: new THREE.Color(0x66ffff)}
                 }}
-                side={THREE.DoubleSide}
                 wireframe={false}
                 blending={THREE.AdditiveBlending}
                 transparent={true}

@@ -1,6 +1,8 @@
 varying vec2 vUv;
 varying vec3 vPosition;
 uniform float uTime;
+uniform vec3 uColorTop;
+uniform vec3 uColorBottom;
 uniform float uPlaneNoiseScale;
 
 //	Classic Perlin 3D Noise 
@@ -83,23 +85,30 @@ float amplify(float value, float intensity) {
 }
 
 void main() {
-    vec3 colorB = vec3(0.4, 1, 1);
-    vec3 colorA = vec3(0.27, 0.93, 0);
-    vec3 color = vec3(0.0);
     vec3 pct = vec3(vUv.y);
-    color = mix(colorA, colorB, pct);
+    vec3 color = vec3(mix(uColorBottom, uColorTop, pct));
   
     float noise = 0.5 + cnoise(vec3(vPosition.x, 0.0, vPosition.z) * uPlaneNoiseScale + uTime * 0.25);
 
-    noise = mix(noise, 1.0, vUv.y);
+    // noise = mix(noise, 1.0, vUv.y);
     noise = mix(1.0, noise, vUv.y);
 
     float fadeToBot = smoothstep(0.0, 1.0, vUv.y);
     float fadeToTop = 1.0 - smoothstep(0.0, 1.0, vUv.y);
     fadeToBot = amplify(fadeToBot, 1.2);
     fadeToTop = amplify(fadeToTop, 1.2);
-    float fade = fadeToBot * fadeToTop;
+    float fadeStart = smoothstep(0.0, 0.1, vUv.x);
+    float fadeEnd = 1.0 - smoothstep(0.9, 1.0, vUv.x);
+    float fade = fadeToBot * fadeToTop * fadeStart * fadeEnd;
     // fade = 1.0;
+
+
+    // radial gradient
+    vec2 center = vec2(0.5, 0.5);
+    float innerRadius = 0.3;
+    float outerRadius = 0.5;
+    float dist = distance(vUv, center);
+    float radialGradient = smoothstep(outerRadius, innerRadius, dist);
 
     // test gradient
     gl_FragColor = vec4(color, 1.0);
@@ -107,7 +116,8 @@ void main() {
     gl_FragColor = vec4(vec3(noise), 1.0);
     // test gradients
     gl_FragColor = vec4(vec3(fade), 1.0);
+    // test radial gradient
+    gl_FragColor = vec4(vec3(radialGradient), 1.0);
     // final result
-    // color = vec3(1.0, 1.0, 1.0);
     gl_FragColor = vec4(color * vec3(noise), noise * fade);
 }
