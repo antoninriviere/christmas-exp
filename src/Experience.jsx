@@ -1,6 +1,6 @@
 import { OrbitControls } from '@react-three/drei'
 import { useGLTF } from '@react-three/drei'
-import { useControls } from 'leva'
+import { useControls, } from 'leva'
 import { Perf } from 'r3f-perf'
 import Aurora from './Aurora/Aurora.jsx'
 

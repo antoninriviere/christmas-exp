@@ -1,42 +1,64 @@
 import * as THREE from 'three'
-import { createNoise2D } from 'simplex-noise'
-import { useRef, useEffect } from 'react'
+import { useRef } from 'react'
+import { useControls } from 'leva'
+
+import { extend, useFrame } from '@react-three/fiber'
+import { ShaderMaterial } from 'three'
+
+import vertexShader from './shaders/vertex.glsl'
+import fragmentShader from './shaders/fragment.glsl'
+
+extend({ ShaderMaterial })
 
 export default function Aurora({ width = 5, height = 1, segments = 32 }) {
 
     const mesh = useRef()
+    const materialRef = useRef()
 
-    useEffect(() => {
-        if (mesh.current) {
-            const geometry = mesh.current.geometry
-            const position = geometry.attributes.position
-
-            const noiseFactor = 0.5
-
-            const noise2D = createNoise2D()
-
-            for (let i = 0; i < position.count; i++) {
-                const x = position.getX(i)
-                const y = position.getY(i)
-                const z = position.getZ(i)
-
-                
-                const noiseY = noise2D(x * 0.3, z * 0.3) * noiseFactor
-                const noiseZ = noise2D(x * 0.2, y * 0.2) * noiseFactor
-
-                position.setY(i, y + noiseY)
-                position.setZ(i, z + noiseZ)
+    const {uPlaneNoiseScale, uPlaneNoiseFactor } = useControls('Aurora', {
+        uPlaneNoiseScale: {
+            value: 5,
+            step: 0.1,
+            min: 0,
+            max: 10,
+            onChange: (value) => {
+                materialRef.current.uniforms.uPlaneNoiseScale.value = value
             }
-
-            position.needsUpdate = true
+        },
+        uPlaneNoiseFactor: {
+            value: 0.5,
+            step: 0.01,
+            min: 0,
+            max: 3,
+            onChange: (value) => {
+                materialRef.current.uniforms.uPlaneNoiseFactor.value = value
+            }
         }
-    }, [])
+    })
 
+    useFrame(({ clock }) => {
+        if (materialRef.current) {
+            materialRef.current.uniforms.uTime.value = clock.getElapsedTime()
+        }
+    })
 
     return <>
         <mesh ref={mesh}>
             <planeGeometry args={[width, height, segments, segments]} />
-            <meshStandardMaterial color="#f2f5ff" side={ THREE.DoubleSide } wireframe={true} />
+            <shaderMaterial
+                ref={materialRef}
+                vertexShader={vertexShader}
+                fragmentShader={fragmentShader}
+                uniforms={{
+                    uTime: { value: 0 },
+                    uPlaneNoiseFactor: { value: 0.5 },
+                    uPlaneNoiseScale: {value: 5.0 }
+                }}
+                side={THREE.DoubleSide}
+                wireframe={false}
+                blending={THREE.AdditiveBlending}
+                transparent={true}
+            />
         </mesh>
     </>
 }
