@@ -7,7 +7,6 @@ import { OrbitControls, useGLTF } from '@react-three/drei'
 
 import { ToneMapping, Vignette, EffectComposer, Bloom } from '@react-three/postprocessing'
 import { BlendFunction, ToneMappingMode } from 'postprocessing'
-console.log(ToneMappingMode)
 
 import { useControls, } from 'leva'
 import { Perf } from 'r3f-perf'
@@ -15,6 +14,7 @@ import { Perf } from 'r3f-perf'
 import Aurora from './Aurora/Aurora.jsx'
 import Stars from './Stars/Stars.jsx'
 import Forest from './Forest/Forest.jsx'
+import ChristmasTree from './ChristmasTree/ChristmasTree.jsx'
 
 
 
@@ -23,27 +23,11 @@ export default function Experience()
     const christmasTree = useRef()
 
     const { scene } = useThree()
-    scene.fog = new THREE.FogExp2('#000826', 0.038) 
+    scene.fog = new THREE.FogExp2('#000826', 0.045) 
 
     const { showStats } = useControls('stats', {
         showStats: true
     })
-
-    const { showGround } = useControls('ground', {
-        showGround: true,
-    })
-
-    const { showTree, scale } = useControls('tree', {
-        showTree: true,
-        scale: {
-            value: 4.5,
-            min: 0,
-            max: 4,
-            step: 0.1
-        }
-    })
-
-    const tree = useGLTF('./models/christmas-tree.glb')
 
     return <>
         { showStats && <Perf position="top-left" /> }
@@ -52,7 +36,7 @@ export default function Experience()
 
         <EffectComposer>
             <ToneMapping mode={ ToneMappingMode.ACES_FILMIC } />
-            <Bloom />
+            <Bloom luminanceThreshold={ 0 } mipmapBlur intensity={ 2 } />
             <Vignette
                 offset={ 0.3 }
                 darkness={ 0.9 }
@@ -80,24 +64,18 @@ export default function Experience()
             target={christmasTree.current}
         />
 
-        <pointLight 
-            color="#ffa000"
-            intensity={3}        // Ajuste selon l’effet souhaité
-            position={[3, 2, 0]}   // Supposons que le sapin est au centre à (0,0,0)
-            distance={3}           // Distance jusqu’à laquelle la lumière éclaire
-            decay={1}              // Comment la lumière s'atténue avec la distance
-        />
-
         <Stars />
         <Aurora />
         
-        { showTree && <primitive ref={christmasTree} object={ tree.scene } scale={scale} position={[0, 1.5, 0]} />}
+        <group ref={christmasTree}>
+            <ChristmasTree />
+        </group>
         <Forest />
 
-        { showGround && <mesh position-y={ - 1 } rotation-x={ - Math.PI * 0.5 }>
+        <mesh position-y={ - 1 } rotation-x={ - Math.PI * 0.5 }>
             <planeGeometry args={[30, 30, 1, 1]}/>
             <meshStandardMaterial color="#f2f5ff" side={THREE.DoubleSide} />
-        </mesh> }
+        </mesh>
 
 
     </>
