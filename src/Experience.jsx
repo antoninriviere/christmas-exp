@@ -5,6 +5,10 @@ import { useRef } from 'react'
 import { useThree } from '@react-three/fiber'
 import { OrbitControls, useGLTF } from '@react-three/drei'
 
+import { ToneMapping, Vignette, EffectComposer, Bloom } from '@react-three/postprocessing'
+import { BlendFunction, ToneMappingMode } from 'postprocessing'
+console.log(ToneMappingMode)
+
 import { useControls, } from 'leva'
 import { Perf } from 'r3f-perf'
 
@@ -45,6 +49,16 @@ export default function Experience()
         { showStats && <Perf position="top-left" /> }
 
         <OrbitControls />
+
+        <EffectComposer>
+            <ToneMapping mode={ ToneMappingMode.ACES_FILMIC } />
+            <Bloom />
+            <Vignette
+                offset={ 0.3 }
+                darkness={ 0.9 }
+                blendFunction={ BlendFunction.NORMAL }
+            />
+        </EffectComposer>
 
         <directionalLight 
             color="#9bbcf0" // light blue
