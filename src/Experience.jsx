@@ -3,6 +3,7 @@ import { useGLTF } from '@react-three/drei'
 import { useControls, } from 'leva'
 import { Perf } from 'r3f-perf'
 import Aurora from './Aurora/Aurora.jsx'
+import Stars from './Stars/Stars.jsx'
 
 
 
@@ -13,11 +14,11 @@ export default function Experience()
     })
 
     const { showGround } = useControls('ground', {
-        showGround: false,
+        showGround: true,
     })
 
     const { showTree, scale } = useControls('tree', {
-        showTree: false,
+        showTree: true,
         scale: {
             value: 2,
             min: 0,
@@ -36,13 +37,16 @@ export default function Experience()
         <directionalLight position={ [ 1, 2, 3 ] } intensity={ 4.5 } />
         <ambientLight intensity={ 1.5 } />
 
+        <Stars />
+        {/* <Aurora /> */}
+
         { showTree && <primitive object={ tree.scene } scale={scale} />}
 
-        { showGround && <mesh position-y={ - 1 } rotation-x={ - Math.PI * 0.5 } scale={ 10 }>
-            <planeGeometry />
+        { showGround && <mesh position-y={ - 1 } rotation-x={ - Math.PI * 0.5 }>
+            <planeGeometry args={[30, 30, 1, 1]}/>
             <meshStandardMaterial color="#f2f5ff" />
         </mesh> }
-        <Aurora />
+
 
     </>
 }
