@@ -1,17 +1,20 @@
 import * as THREE from 'three'
+import { useThree } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 import { useGLTF } from '@react-three/drei'
 import { useControls, } from 'leva'
 import { Perf } from 'r3f-perf'
 import Aurora from './Aurora/Aurora.jsx'
 import Stars from './Stars/Stars.jsx'
-import SnowPine from './SnowPine/SnowPine.jsx'
 import Forest from './Forest/Forest.jsx'
 
 
 
 export default function Experience()
 {
+    const { scene } = useThree()
+    scene.fog = new THREE.FogExp2('#000826', 0.038) 
+
     const { showStats } = useControls('stats', {
         showStats: true
     })
@@ -21,9 +24,9 @@ export default function Experience()
     })
 
     const { showTree, scale } = useControls('tree', {
-        showTree: false,
+        showTree: true,
         scale: {
-            value: 2,
+            value: 4.5,
             min: 0,
             max: 4,
             step: 0.1
@@ -37,13 +40,21 @@ export default function Experience()
 
         <OrbitControls />
 
-        {/* <directionalLight position={ [ 1, 2, 3 ] } intensity={ 4.5 } /> */}
-        <ambientLight intensity={ 1.5 } />
+        <directionalLight 
+            color="#9bbcf0" // light blue
+            intensity={0.2} 
+            position={[ 1, 2, 3 ]} 
+        />
+        <hemisphereLight 
+            skyColor="#101628" // dark blue
+            groundColor="#000000"
+            intensity={0.025}
+        />
 
         <Stars />
-        {/* <Aurora /> */}
+        <Aurora />
         
-        { showTree && <primitive object={ tree.scene } scale={scale} />}
+        { showTree && <primitive object={ tree.scene } scale={scale} position={[0, 1.5, 0]} />}
         <Forest />
 
         { showGround && <mesh position-y={ - 1 } rotation-x={ - Math.PI * 0.5 }>

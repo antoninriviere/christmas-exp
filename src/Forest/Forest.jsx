@@ -7,7 +7,7 @@ export default function Forest() {
   const pine = useGLTF('./models/pine.glb')
 
   return <>
-    {Array.from({ length: 50 }).map((_, index) => {
+    {Array.from({ length: 60 }).map((_, index) => {
       const isPine = Math.random() < 0.3;
 
       // Define scales and corresponding Y positions

@@ -10,7 +10,7 @@ import fragmentShader from './shaders/fragment.glsl'
 
 extend({ ShaderMaterial })
 
-export default function Aurora({ width = 5, height = 1, segments = 32 }) {
+export default function Aurora({ width = 10, height = 2, segments = 32 }) {
 
     const mesh = useRef()
     const materialRef = useRef()
@@ -59,7 +59,7 @@ export default function Aurora({ width = 5, height = 1, segments = 32 }) {
     })
 
     return <>
-        <mesh ref={mesh}>
+        <mesh ref={mesh} position={[0, 12, -35]} scale={[10, 5, 0]} rotation-y={ Math.PI * 0.2 }>
             <planeGeometry args={[width, height, segments, segments]} />
             <shaderMaterial
                 ref={materialRef}
