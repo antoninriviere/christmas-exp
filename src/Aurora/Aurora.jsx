@@ -2,13 +2,10 @@ import * as THREE from 'three'
 import { useRef } from 'react'
 import { useControls } from 'leva'
 
-import { extend, useFrame } from '@react-three/fiber'
-import { ShaderMaterial } from 'three'
+import { useFrame } from '@react-three/fiber'
 
 import vertexShader from './shaders/vertex.glsl'
 import fragmentShader from './shaders/fragment.glsl'
-
-extend({ ShaderMaterial })
 
 export default function Aurora({ width = 10, height = 2, segments = 32 }) {
 
@@ -72,7 +69,6 @@ export default function Aurora({ width = 10, height = 2, segments = 32 }) {
                     uColorBottom: {value: new THREE.Color(0x45ed00)},
                     uColorTop: {value: new THREE.Color(0x66ffff)}
                 }}
-                wireframe={false}
                 blending={THREE.AdditiveBlending}
                 transparent={true}
             />

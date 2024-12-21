@@ -13,6 +13,7 @@ import { Perf } from 'r3f-perf'
 
 import Aurora from './Aurora/Aurora.jsx'
 import Stars from './Stars/Stars.jsx'
+import Snow from './Snow/Snow.jsx'
 import Forest from './Forest/Forest.jsx'
 import ChristmasTree from './ChristmasTree/ChristmasTree.jsx'
 
@@ -64,7 +65,8 @@ export default function Experience()
             target={christmasTree.current}
         />
 
-        <Stars />
+        <Snow />
+        {/* <Stars /> */}
         <Aurora />
         
         <group ref={christmasTree}>
