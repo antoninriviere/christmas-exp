@@ -56,7 +56,7 @@ export default function Aurora({ width = 10, height = 2, segments = 32 }) {
     })
 
     return <>
-        <mesh ref={mesh} position={[0, 12, -35]} scale={[10, 5, 0]} rotation-y={ Math.PI * 0.2 }>
+        <mesh ref={mesh} position={[-20, 6, -60]} scale={[12, 5, 0]} rotation-y={ Math.PI * 0.4 }>
             <planeGeometry args={[width, height, segments, segments]} />
             <shaderMaterial
                 ref={materialRef}

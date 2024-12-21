@@ -11,10 +11,8 @@ export default function ChristmasTree(props) {
   const blueMaterial = <meshStandardMaterial color="#1818cc" emissive="#4d4dff" emissiveIntensity={6} />
 
   return (
-    <group {...props} dispose={null} scale={4.5} position={[0, 1.5, 0]}>
+    <group {...props} dispose={null} scale={4.5} position={[0, 1.5, 0]} rotation-y={Math.PI * 0.35 }>
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.group1089073295.geometry}
         // material={materials.mat8}
         // red one
@@ -22,8 +20,6 @@ export default function ChristmasTree(props) {
         {redMaterial}
       </mesh>
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.group314590998.geometry}
         // material={materials.mat12}
         // yellow
@@ -31,8 +27,6 @@ export default function ChristmasTree(props) {
         {yellowMaterial}
       </mesh>
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.group214022184.geometry}
         // material={materials.mat2}
         // purple one
@@ -40,48 +34,36 @@ export default function ChristmasTree(props) {
         {blueMaterial}
       </mesh>
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.group922588407.geometry}
         // material={materials.mat12}
       >
         {yellowMaterial}
       </mesh>
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.group1410509470.geometry}
         // material={materials.mat2}
       >
         {blueMaterial}
       </mesh>
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.group179461400.geometry}
         // material={materials.mat12}
       >
         {yellowMaterial}
       </mesh>
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.group1832615123.geometry}
         // material={materials.mat8}
       >
         {redMaterial}
       </mesh>
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.group411241951.geometry}
         // material={materials.mat8}
       >
         {redMaterial}
       </mesh>
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.group1633066821.geometry}
         // material={materials.mat8}
       >
@@ -89,94 +71,68 @@ export default function ChristmasTree(props) {
       </mesh>
 
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.group1164989660.geometry}
         // material={materials.mat8}
       >
         {redMaterial}
       </mesh>
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.group1127207942.geometry}
         // material={materials.mat12}
       >
         {yellowMaterial}
       </mesh>
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.group2051798186.geometry}
         // material={materials.mat2}
       >
         {blueMaterial}
       </mesh>
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.group1084830891.geometry}
         // material={materials.mat12}
       >
         {yellowMaterial}
       </mesh>
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.group75024073.geometry}
         // material={materials.mat12}
       >
         {yellowMaterial}
       </mesh>
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.group615263083.geometry}
         material={materials.mat10}
         // leaf
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.group148092846.geometry}
         material={materials.mat10}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.group667748054.geometry}
         material={materials.mat10}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.group558281359.geometry}
         material={materials.mat10}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.group1540402439.geometry}
         material={materials.mat10}
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.group1263511113.geometry}
         material={materials.mat20}
         // wood
       />
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.group1827880687.geometry}
         // material={materials.mat12}
       >
         {yellowMaterial}
       </mesh>
       <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.mesh1781168731.geometry}
         material={materials.mat21}
       />

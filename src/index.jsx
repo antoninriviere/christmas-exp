@@ -18,7 +18,7 @@ root.render(
                 fov: 45,
                 near: 0.1,
                 far: 200,
-                position: [ 0, 1, 16 ]
+                position: [ 0, 3.25, 16 ]
             } }
             onCreated={ created }
         >

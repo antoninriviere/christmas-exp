@@ -8,6 +8,8 @@ import { OrbitControls, useGLTF } from '@react-three/drei'
 import { ToneMapping, Vignette, EffectComposer, Bloom } from '@react-three/postprocessing'
 import { BlendFunction, ToneMappingMode } from 'postprocessing'
 
+import { Physics, RigidBody } from '@react-three/rapier'
+
 import { useControls, } from 'leva'
 import { Perf } from 'r3f-perf'
 
@@ -29,6 +31,10 @@ export default function Experience()
     const { showStats } = useControls('stats', {
         showStats: true
     })
+
+    const present1 = useGLTF('./models/present-1.glb')
+    const present2 = useGLTF('./models/present-2.glb')
+    const present3 = useGLTF('./models/present-3.glb')
 
     return <>
         { showStats && <Perf position="top-left" /> }
@@ -74,11 +80,33 @@ export default function Experience()
         </group>
         <Forest />
 
-        <mesh position-y={ - 1 } rotation-x={ - Math.PI * 0.5 }>
-            <planeGeometry args={[30, 30, 1, 1]}/>
-            <meshStandardMaterial color="#f2f5ff" side={THREE.DoubleSide} />
-        </mesh>
+        <Physics debug={false}>
+            {/* <RigidBody restitution={0.8}>
+                <mesh position={[-3, 10, 2]}>
+                    <boxGeometry />
+                    <meshStandardMaterial color="mediumpurple" />
+                </mesh>
+            </RigidBody> */}
 
+            <RigidBody type="fixed">
+                <mesh position-y={ - 1 }>
+                    <boxGeometry args={[30, 0.5, 30]}/>
+                    <meshStandardMaterial color="#f2f5ff" side={THREE.DoubleSide} />
+                </mesh>
+            </RigidBody>
+
+            <RigidBody restitution={0.7}>
+                <primitive object={present1.scene} position={[-3, 10, 2]} />
+            </RigidBody>
+
+            <RigidBody restitution={0.7}>
+                <primitive object={present2.scene} position={[3, 10, 0]} />
+            </RigidBody>
+
+            <RigidBody restitution={0.7}>
+                <primitive object={present3.scene} position={[-1, 10, 5]} />
+            </RigidBody>
+        </Physics>
 
     </>
 }
