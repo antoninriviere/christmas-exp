@@ -1,46 +1,56 @@
 import * as THREE from 'three'
-import { useRef, useEffect } from 'react'
+import { useMemo } from 'react'
 import { Clone, useGLTF } from '@react-three/drei'
 
 export default function Forest() {
   const snowPine = useGLTF('./models/snow-pine.glb')
   const pine = useGLTF('./models/pine.glb')
 
-  return <>
-    {Array.from({ length: 60 }).map((_, index) => {
-      const isPine = Math.random() < 0.3;
+  const models = useMemo(() => ({
+    snowPine: snowPine.scene,
+    pine: pine.scene
+  }), [snowPine, pine])
 
-      // Define scales and corresponding Y positions
+  const trees = useMemo(() => {
+    const treesArray = []
+    for (let i = 0; i < 60; i++) {
+      const isPine = Math.random() < 0.3
+
       const scales = [
         { scale: 2.5, yPos: 0.125 },
         { scale: 3, yPos: 0.35 },
         { scale: 3.5, yPos: 0.5 }
-      ];
+      ]
 
-      // Randomly select a scale and its corresponding Y position
-      const { scale, yPos } = scales[Math.floor(Math.random() * scales.length)];
-      
-      let position;
+      const { scale, yPos } = scales[Math.floor(Math.random() * scales.length)]
 
-      // Generate random position avoiding the center circle
+      let position
+
       do {
         position = [
-          (Math.random() - 0.5) * 20, // Random x between -10 and 10
-          yPos, // Use the corresponding Y position
-          (Math.random() - 0.5) * 20  // Random z between -10 and 10
-        ];
-      } while (Math.sqrt(position[0] ** 2 + position[2] ** 2) < 6); // Avoid circle with radius 4
+          (Math.random() - 0.5) * 20,
+          yPos,
+          (Math.random() - 0.5) * 20
+        ]
+      } while (Math.sqrt(position[0] ** 2 + position[2] ** 2) < 6)
 
-      return (
-        <Clone 
-          key={index} 
-          object={isPine ? pine.scene : snowPine.scene} 
-          scale={scale} 
-          position={position} 
+      treesArray.push({ isPine, scale, position })
+    }
+    return treesArray
+  }, [])
+
+  return (
+    <>
+      {trees.map((tree, index) => (
+        <Clone
+          key={index}
+          object={tree.isPine ? models.pine : models.snowPine}
+          scale={tree.scale}
+          position={tree.position}
         />
-      );
-    })}
-  </>
+      ))}
+    </>
+  )
 }
 
 useGLTF.preload('./models/snow-pine.glb')

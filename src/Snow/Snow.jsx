@@ -1,11 +1,12 @@
 import * as THREE from 'three'
+import React from 'react'
 import { useRef, useMemo, useEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
 
 import vertexShader from './shaders/vertex.glsl'
 import fragmentShader from './shaders/fragment.glsl'
 
-export default function Snow({ count = 500 }) {
+const Snow = React.memo(function SnowComponent({ count = 500 }) {
   const materialRef = useRef()
   const geometryRef = useRef()
 
@@ -73,4 +74,5 @@ export default function Snow({ count = 500 }) {
       />
     </points>
   )
-}
+})
+export default Snow

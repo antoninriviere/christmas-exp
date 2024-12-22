@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { useRef } from 'react'
+import React, { useRef } from 'react'
 import { useControls } from 'leva'
 
 import { useFrame } from '@react-three/fiber'
@@ -7,7 +7,7 @@ import { useFrame } from '@react-three/fiber'
 import vertexShader from './shaders/vertex.glsl'
 import fragmentShader from './shaders/fragment.glsl'
 
-export default function Aurora({ width = 10, height = 2, segments = 32 }) {
+const Aurora = React.memo(function AuroraComponent({ width = 10, height = 2, segments = 32 }) {
 
     const mesh = useRef()
     const materialRef = useRef()
@@ -74,4 +74,6 @@ export default function Aurora({ width = 10, height = 2, segments = 32 }) {
             />
         </mesh>
     </>
-}
+})
+
+export default Aurora
