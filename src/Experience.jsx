@@ -2,9 +2,9 @@ import * as THREE from 'three'
 import React, { useState } from 'react'
 
 import { useThree } from '@react-three/fiber'
-import { OrbitControls, useGLTF } from '@react-three/drei'
+import { OrbitControls } from '@react-three/drei'
 
-import { Physics, RigidBody } from '@react-three/rapier'
+import { Physics, RigidBody, CylinderCollider } from '@react-three/rapier'
 
 import { useControls, } from 'leva'
 import { Perf } from 'r3f-perf'
@@ -61,11 +61,10 @@ export default function Experience()
         {/* <Stars /> */}
         <Aurora />
         
-        <ChristmasTree />
         <Forest />
 
         <Physics debug={false}>
-            <RigidBody type="fixed" restitution={0.4}>
+            <RigidBody type="fixed" restitution={0.2}>
                 <mesh
                     position-y={ - 1 }
                     onClick={handleFloorClick}
@@ -74,6 +73,11 @@ export default function Experience()
                     <boxGeometry args={[30, 0.5, 30]}/>
                     <meshStandardMaterial color="#f2f5ff" side={THREE.DoubleSide} />
                 </mesh>
+            </RigidBody>
+
+            <RigidBody type="fixed" colliders={ false } restitution={0.2}>
+                <ChristmasTree />
+                <CylinderCollider args={ [ 3, 1 ] } position={[0, 1.8, 0]} />
             </RigidBody>
 
             <Presents presents={presents}/>
