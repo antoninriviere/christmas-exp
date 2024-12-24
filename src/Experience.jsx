@@ -1,5 +1,6 @@
 import * as THREE from 'three'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { Howl } from 'howler'
 
 import { useThree } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
@@ -33,15 +34,29 @@ export default function Experience()
 
     const [presents, setPresents] = useState([])
 
+    useEffect(() => {
+        const sound = new Howl({
+            src: ['./sounds/ice-dance.mp3'],
+            autoplay: true,
+            loop: true,
+            volume: 0.5
+        })
+
+        sound.play()
+
+        return () => {
+            sound.stop()
+        }
+    }, [])
+
     const onClickFloor = (event) => {
         if (presents.length >= 9) return
 
         const { point } = event
 
         const newPresent = {
-            // y = 10 so the present falls from the sky
+            // y = 8 so the present falls from the sky
             position: [point.x, 8, point.z],
-            // position: [3, 0, 3],
             // random model between 1 and 3
             model: Math.floor(Math.random() * 3) + 1,
             // random scale
@@ -73,7 +88,7 @@ export default function Experience()
                     onClick={onClickFloor}
                     onPointerDown={(e) => e.stopPropagation()}
                 >
-                    <boxGeometry args={[30, 0.5, 30]}/>
+                    <boxGeometry args={[50, 0.5, 50]}/>
                     <meshStandardMaterial color="#f2f5ff" side={THREE.DoubleSide} />
                 </mesh>
             </RigidBody>

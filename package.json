@@ -12,6 +12,7 @@
     "@react-three/postprocessing": "^2.16.3",
     "@react-three/rapier": "^1.5.0",
     "@vitejs/plugin-react": "4.3",
+    "howler": "^2.2.4",
     "leva": "^0.9.34",
     "r3f-perf": "^7.2.3",
     "simplex-noise": "^4.0.3",
