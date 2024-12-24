@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom/client'
 import { Canvas } from '@react-three/fiber'
 import { Leva } from 'leva'
 import Intro from './Intro/Intro.jsx'
+import UI from './UI/UI.jsx'
 import Experience from './Experience.jsx'
 
 const root = ReactDOM.createRoot(document.querySelector('#root'))
@@ -37,6 +38,7 @@ const App = () => {
     return (
         <StrictMode>
             {showIntro && <Intro onEnterExperience={handleIntroClick} />}
+            {!showIntro && <UI />}
             <Canvas
                 dpr={ [ 1, 2 ] }
                 camera={ {
