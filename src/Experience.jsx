@@ -23,7 +23,7 @@ import Presents from './webgl/Presents/Presents.jsx'
 
 export default function Experience({debug = false, quality = 1, showIntro = true})
 {
-    const maxPresents = quality > 0 ? 9 : 
+    const maxPresents = quality > 0 ? 9 : 5
     const { scene } = useThree()
     scene.fog = new THREE.FogExp2('#000826', 0.045) 
 
