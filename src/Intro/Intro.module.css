@@ -1,0 +1,58 @@
+.intro {
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.introBg {
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #00040b;
+    opacity: 0.9;
+}
+
+.text {
+    font-family: 'MountainsofChristmas';
+    font-size: 24px;
+    color: #c8ec82;
+    padding: 0 24px;
+    text-align: center;
+    margin-bottom: 48px;
+
+}
+
+.btns {
+    padding: 0 24px;
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn {
+    cursor: pointer;
+   font-family: 'MountainsofChristmas';
+    font-size: 24px;
+    color: #c8ec82; 
+    text-decoration: underline;
+}
+
+@media (min-width: 768px) {
+    .text {
+        font-size: 32px;
+        margin-bottom: 72px;
+        max-width: 720px;
+    }
+}

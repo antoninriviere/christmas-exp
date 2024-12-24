@@ -1,6 +1,7 @@
 varying vec2 vUv;
 varying vec3 vPosition;
 uniform float uTime;
+uniform float uOpacity;
 uniform vec3 uColorTop;
 uniform vec3 uColorBottom;
 uniform float uPlaneNoiseScale;
@@ -119,5 +120,5 @@ void main() {
     // test radial gradient
     gl_FragColor = vec4(vec3(radialGradient), 1.0);
     // final result
-    gl_FragColor = vec4(color * vec3(noise), noise * fade);
+    gl_FragColor = vec4(color * vec3(noise), noise * fade * uOpacity);
 }

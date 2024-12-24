@@ -1,4 +1,6 @@
-uniform float uPlaneNoiseFactor;
+uniform float uPlaneNoiseFactorX;
+uniform float uPlaneNoiseFactorY;
+uniform float uPlaneNoiseFactorZ;
 uniform float uTime;
 varying vec3 vPosition;
 varying vec2 vUv;
@@ -40,10 +42,12 @@ void main() {
   vPosition = pos;
 
   // Utilisation de Simplex Noise pour une déformation douce
-  float noiseY = snoise(pos.xz * 0.3 + uTime * 0.05) * uPlaneNoiseFactor;
-  float noiseZ = snoise(pos.xy * 0.2 + uTime * 0.05) * uPlaneNoiseFactor;
+  float noiseX = snoise(pos.xx * 0.2 + uTime * 0.05) * uPlaneNoiseFactorX;
+  float noiseY = snoise(pos.xz * 0.3 + uTime * 0.05) * uPlaneNoiseFactorY;
+  float noiseZ = snoise(pos.xy * 0.2 + uTime * 0.05) * uPlaneNoiseFactorZ;
 
   pos.y += noiseY;
+  pos.x += noiseX;
   pos.z += noiseZ;
 
   gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);

@@ -2,9 +2,11 @@ import * as THREE from 'three'
 import { useMemo } from 'react'
 import { Clone, useGLTF } from '@react-three/drei'
 
-export default function Forest() {
+export default function Forest({quality = 1}) {
   const snowPine = useGLTF('./models/snow-pine.glb')
   const pine = useGLTF('./models/pine.glb')
+
+  const nbTrees = quality > 0 ? 75 : 40
 
   const models = useMemo(() => ({
     snowPine: snowPine.scene,
@@ -13,7 +15,7 @@ export default function Forest() {
 
   const trees = useMemo(() => {
     const treesArray = []
-    for (let i = 0; i < 65; i++) {
+    for (let i = 0; i < nbTrees; i++) {
       const isPine = Math.random() < 0.3
 
       const scales = [

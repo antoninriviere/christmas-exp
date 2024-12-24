@@ -10,19 +10,20 @@ import { Physics, RigidBody, CylinderCollider } from '@react-three/rapier'
 import { useControls, } from 'leva'
 import { Perf } from 'r3f-perf'
 
-import Lights from './Lights/Lights.jsx'
-import Postprocessing from './Postprocessing/Postprocessing.jsx'
-import Aurora from './Aurora/Aurora.jsx'
-import Stars from './Stars/Stars.jsx'
-import Snow from './Snow/Snow.jsx'
-import Forest from './Forest/Forest.jsx'
-import ChristmasTree from './ChristmasTree/ChristmasTree.jsx'
-import Presents from './Presents/Presents.jsx'
+import Lights from './webgl/Lights/Lights.jsx'
+import Postprocessing from './webgl/Postprocessing/Postprocessing.jsx'
+import Aurora from './webgl/Aurora/Aurora.jsx'
+import Stars from './webgl/Stars/Stars.jsx'
+import Snow from './webgl/Snow/Snow.jsx'
+import Forest from './webgl/Forest/Forest.jsx'
+import ChristmasTree from './webgl/ChristmasTree/ChristmasTree.jsx'
+import Presents from './webgl/Presents/Presents.jsx'
 
 
 
-export default function Experience()
+export default function Experience({debug = false, quality = 1, showIntro = true})
 {
+    const maxPresents = quality > 0 ? 9 : 
     const { scene } = useThree()
     scene.fog = new THREE.FogExp2('#000826', 0.045) 
 
@@ -50,7 +51,7 @@ export default function Experience()
     }, [])
 
     const onClickFloor = (event) => {
-        if (presents.length >= 9) return
+        if (presents.length >= maxPresents) return
 
         const { point } = event
 
@@ -69,17 +70,17 @@ export default function Experience()
     return <>
         { showStats && <Perf position="top-left" /> }
 
-        <OrbitControls />
+        { debug && <OrbitControls /> }
 
-        <Postprocessing />
+        {!showIntro && quality > 0 && <Postprocessing />}
 
         <Lights />
 
         <Snow />
-        {/* <Stars /> */}
+        <Stars />
         <Aurora />
         
-        <Forest />
+        { !showIntro && <Forest quality={quality}/> }
 
         <Physics debug={false}>
             <RigidBody type="fixed" restitution={0.2}>
