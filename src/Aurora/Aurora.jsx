@@ -47,6 +47,8 @@ const Aurora = React.memo(function AuroraComponent({ width = 10, height = 2, seg
                 materialRef.current.uniforms.uColorBottom.value = new THREE.Color(value)
             }
         }
+    }, {
+        collapsed: true
     })
 
     useFrame(({ clock }) => {

@@ -2,6 +2,7 @@ import './style.css'
 import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 import { Canvas } from '@react-three/fiber'
+import { Leva } from 'leva'
 import Experience from './Experience.jsx'
 
 const root = ReactDOM.createRoot(document.querySelector('#root'))
@@ -10,6 +11,9 @@ const created = ({ gl }) =>
 {
     gl.setClearColor('#000826', 1)
 }
+
+const urlParams = new URLSearchParams(window.location.search)
+const isDebugMode = urlParams.get('debug') === 'true'
 
 root.render(
     <StrictMode>
@@ -24,5 +28,8 @@ root.render(
         >
             <Experience />
         </Canvas>
+        <Leva
+            hidden={!isDebugMode}
+        />
     </StrictMode>
 )

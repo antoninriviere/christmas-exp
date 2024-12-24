@@ -25,20 +25,23 @@ export default function Experience()
     const { scene } = useThree()
     scene.fog = new THREE.FogExp2('#000826', 0.045) 
 
-    const { showStats } = useControls('stats', {
-        showStats: true
+    const { showStats } = useControls('Stats', {
+        showStats: false
+    }, {
+        collapsed: true
     })
 
     const [presents, setPresents] = useState([])
 
-    const handleFloorClick = (event) => {
-        if (presents.length >= 6) return
+    const onClickFloor = (event) => {
+        if (presents.length >= 9) return
 
         const { point } = event
 
         const newPresent = {
             // y = 10 so the present falls from the sky
             position: [point.x, 8, point.z],
+            // position: [3, 0, 3],
             // random model between 1 and 3
             model: Math.floor(Math.random() * 3) + 1,
             // random scale
@@ -67,7 +70,7 @@ export default function Experience()
             <RigidBody type="fixed" restitution={0.2}>
                 <mesh
                     position-y={ - 1 }
-                    onClick={handleFloorClick}
+                    onClick={onClickFloor}
                     onPointerDown={(e) => e.stopPropagation()}
                 >
                     <boxGeometry args={[30, 0.5, 30]}/>
