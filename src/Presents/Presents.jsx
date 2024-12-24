@@ -1,11 +1,20 @@
 import { Clone, useGLTF } from '@react-three/drei'
 import { RigidBody, CuboidCollider } from '@react-three/rapier'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
+import { Howl } from 'howler'
 
 export default function Presents({ presents }) {
     const present1 = useGLTF('./models/present-1.glb')
     const present2 = useGLTF('./models/present-2.glb')
     const present3 = useGLTF('./models/present-3.glb')
+
+    const [ hitSound ] = useState(() => {
+        return new Howl({
+            src: ['./sounds/hit.mp3'],
+            volume: 0.15
+        })
+    })
+    
 
     const presentsRefs= useRef([])
 
@@ -46,6 +55,8 @@ export default function Presents({ presents }) {
             y: Math.random() - 0.5,
             z: Math.random() - 0.5,
         })
+
+        hitSound.play()
     }
 
     return (
